@@ -1,6 +1,5 @@
 import { useState,useEffect,useContext,createContext } from "react";
 import { 
-    getAuth, 
     signInWithRedirect, 
     GoogleAuthProvider,
     signOut,

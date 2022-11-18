@@ -5,11 +5,11 @@ import GoogleButton from 'react-google-button'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./intro.css";
-import { useEffect,useState } from "react";
-import logo from './logo.png'
-import { Outlet,Link} from "react-router-dom";
+import { useEffect } from "react";
+
+import { Link} from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import Burger from "../Burger/Burger";
+import Burger from "../toast/Burger";
 import { useNavigate } from "react-router-dom";
 
 export default function Intro(){
