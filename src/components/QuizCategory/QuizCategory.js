@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer} from 'react-toastify';
-import Burger from "../toast/Burger";
+import Burger from "../Burger/Burger";
 import { useAuth } from "../../AuthContext";
 export default function Quizcategory(){
     const {user}=useAuth();
