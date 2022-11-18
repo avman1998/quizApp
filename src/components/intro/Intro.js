@@ -6,10 +6,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./intro.css";
 import { useEffect } from "react";
-
+import Burger from "../Burger/Burger";
 import { Link} from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-import Burger from "../toast/Burger";
 import { useNavigate } from "react-router-dom";
 
 export default function Intro(){
