@@ -12,11 +12,11 @@ import { useAuth } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Intro(){
-    const {user,logout,googleSignIn}=useAuth();
+    const {user,googleSignIn}=useAuth();
 
   
     
-    const {}=useAuth();
+   
     const navigate=useNavigate();
      async function HandleGoogleSignIn(){
       try{

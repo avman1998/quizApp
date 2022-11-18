@@ -16,7 +16,7 @@ export default function Quizcategory(){
   
       
         
-       },[user])
+       })
     return(
         <div className="min-h-[100vh]">
                <ToastContainer theme="light" position="bottom-right" />
