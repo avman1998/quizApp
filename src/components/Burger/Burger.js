@@ -24,7 +24,7 @@ export default function Burger(){
       position: 'fixed',
       width: '36px',
       height: '30px',
-      left: '30px',
+      left: '10px',
       top: '10px'
     },
     bmBurgerBars: {
