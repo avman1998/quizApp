@@ -2,7 +2,7 @@ import React from "react";
 import GoogleButton from 'react-google-button'
 
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import "./intro.css";
 import { useEffect } from "react";
@@ -14,16 +14,7 @@ import { useNavigate } from "react-router-dom";
 export default function Intro(){
     const {user,logout,googleSignIn}=useAuth();
 
-    async function handleSignOut(){
-        try{
-     
-        await logout();
-        
-        }
-        catch(error){
-            console.log(error);
-        }
-    }
+  
     
     const {}=useAuth();
     const navigate=useNavigate();
@@ -41,7 +32,7 @@ export default function Intro(){
      useEffect(()=>{
       if(user!=null)
       navigate('/quizcategory');
-     },[user])
+     })
    
     return(
         <div className="bg-gray-300 min-h-[100vh]">

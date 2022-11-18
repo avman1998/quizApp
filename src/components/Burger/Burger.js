@@ -3,7 +3,7 @@ import React from 'react';
 
 import { slide as Menu } from 'react-burger-menu';
 import { useAuth } from "../../AuthContext";
-import { ToastContainer,toast } from 'react-toastify';
+
 export default function Burger(){
   const {logout,user}=useAuth();
     async function handleSignOut(){
@@ -17,10 +17,7 @@ export default function Burger(){
             console.log(error);
         }
     }
-  function showSettings (event) {
-    event.preventDefault();
-   
-  }
+
 
   var styles = {
     bmBurgerButton: {
