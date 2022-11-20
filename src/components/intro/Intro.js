@@ -35,8 +35,8 @@ export default function Intro(){
      })
    
     return(
-        <div className="bg-gray-300 min-h-[100vh]">
-       <div className="bg-black min-w-[100vw] min-h-[6vh] md:min-h-[8vh]"><Burger/></div>
+        <div className="bg-gray-100 min-h-[100vh]">
+      <div className="bg-black flex justify-between items-center min-w-[100vw] min-h-[6vh] md:min-h-[8vh]"><Burger/>{user?.displayName && <p className="text-white p-[10px]">{user?.displayName}</p>}</div>
        <ToastContainer theme="light" position="bottom-right" />
         {/* <div class="flex flex-row  items-center justify-center gap-[10px] absolute right-[5px] top-[5px] text-[90%] ">
         <p className="text-black font-semibold text-[80%]">{user?.displayName}</p>
