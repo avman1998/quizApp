@@ -5,6 +5,7 @@ import Science from "./Questions/Science/Science";
 import Sports from "./Questions/Sports/Sports";
 import Quizcategory from "./components/QuizCategory/QuizCategory";
 import Bollywood from "./Questions/Bollywood/Bollywood";
+import Protected from "./components/Protected/Protected";
 import {AuthProvider} from './AuthContext';
 import {BrowserRouter as Router, Routes,Route} from "react-router-dom";
 function App() {
@@ -15,7 +16,12 @@ function App() {
     <Routes>
      <Route path="/" element={<Intro/>}/>
      <Route path="about" element={<AboutUs/>}/>
-     <Route path="quizcategory" element={<Quizcategory/>}/>
+     <Route path="quizcategory" element=
+     { 
+     <Protected>
+     <Quizcategory/>
+     </Protected>
+    }/>
      <Route path="science" element={<Science/>}/>
      <Route path="sports" element={<Sports/>}/>
      <Route path="bollywood" element={<Bollywood/>}/>

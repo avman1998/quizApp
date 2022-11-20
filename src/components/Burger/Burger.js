@@ -67,7 +67,8 @@ export default function Burger(){
   return(
     <Menu styles={styles} className="relative">
          <a id="home" className="menu-item my-[10px]" href="/">Home</a>
-         <Link to="/about"><a id="about" className="menu-item my-[10px]" href="/about">About Us</a></Link>
+         <Link to="/about" id="about" className="menu-item my-[10px]">About Us</Link>
+        { user?.displayName && <Link to="/quizcategory" id="category" className="menu-item my-[10px]">Categories</Link>}
         {user?.displayName && <button onClick={handleSignOut}> Sign Out</button>}
         {user?.displayName && <p className="absolute bottom-[10px] text-[80%]">Player: {user?.displayName} </p>}
       </Menu>
