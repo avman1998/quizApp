@@ -42,7 +42,8 @@ export default function Burger(){
     },
     bmMenuWrap: {
       position: 'fixed',
-      height: '100%'
+      height: '100%',
+      top:"0px",
     },
     bmMenu: {
       background: "black",
