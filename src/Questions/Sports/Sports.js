@@ -18,10 +18,7 @@ export default function Sports(){
                 {
                     quesText:questions[quesNo].questionText,
                     selectedAns:questions[quesNo].answerOptions[id].answerText,
-                    correctAns:questions[quesNo].answerOptions.filter(item=>{
-                        if(item.isCorrect===true)
-                        return item
-                    })
+                    correctAns:questions[quesNo].answerOptions.filter(item=>item.isCorrect===true)
                 
                 }
             ]
