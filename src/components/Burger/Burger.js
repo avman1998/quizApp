@@ -21,11 +21,11 @@ export default function Burger(){
 
   var styles = {
     bmBurgerButton: {
-      position: 'fixed',
+      position: 'absolute',
       width: '36px',
       height: '30px',
       left: '10px',
-      top: '10px'
+      top: '17px'
     },
     bmBurgerBars: {
       background: "white"

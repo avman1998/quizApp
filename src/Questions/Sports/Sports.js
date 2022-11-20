@@ -7,24 +7,40 @@ export default function Sports(){
     const [showScore,setShowScore]=useState(false);
     const [score,setScore]=useState(0);
     const [quesNo,setQuesNo]=useState(0);
-   
-   
+    const [summary,setSummary]=useState([]);
+    console.log(summary);
     function handleCheckAns(e,isCorrect,id)
-    {   e.preventDefault();
-     
-       
+    {   
+        e.preventDefault();
+         setSummary(prev=>{
+            return [
+                ...prev,
+                {
+                    quesText:questions[quesNo].questionText,
+                    selectedAns:questions[quesNo].answerOptions[id].answerText,
+                    correctAns:questions[quesNo].answerOptions.filter(item=>{
+                        if(item.isCorrect==true)
+                        return item
+                    })
+                
+                }
+            ]
+        })
+        
         if(isCorrect===true)
         {
-        console.log(score);
-        setScore(score+1);
-      }
+         setScore(prev=>prev+1);
+        }
+        
         const nextQues=quesNo+1;
         if(nextQues<questions.length)
         {
             setQuesNo(nextQues);
         }
         else{
+            
             setShowScore(true);
+            
         }
         
 
@@ -102,20 +118,43 @@ const questions=[
     
 ]
 return(
-    <div className="bg-gray-100">
-        <div className="bg-black flex justify-between items-center min-w-[100vw] min-h-[6vh] md:min-h-[8vh]"><Burger/>{user?.displayName && <p className="text-white p-[10px]">{user?.displayName}</p>}</div>
-    <div className="flex justify-center items-center min-w-[100vw] min-h-[92vh]">
+    <div className="bg-gray-100 ">
+        <div className="sticky bg-black flex justify-between items-center min-h-[8vh]"><Burger/>{user?.displayName && <p className="text-white p-[10px]">{user?.displayName}</p>}
+        </div>
         
-    {showScore===false ? <div className="flex flex-col flex-wrap   justify-start items-start gap-[20px] md:max-w-[50%] min-w-[50%] p-[20px] rounded-2xl bg-white mx-[10px]">
+    <div className=" flex justify-center items-center min-h-[92vh]  ">
+        
+    {showScore===false ? <div className="flex flex-col flex-wrap   justify-start items-start gap-[20px]  md:max-w-[50%] min-w-[50%] p-[20px] rounded-2xl bg-white mx-[10px]">
         <h2 className="text-[135%] w-[100%] bg-blue-300  font-semibold border-2  rounded-xl p-[10px]">Q:{quesNo+1} {questions[quesNo].questionText}</h2>
         {questions[quesNo].answerOptions.map((item,index)=>{
             return <button className="text-[100%] flex bg-green-100 justify-start hover:text-white hover:bg-blue-500 hover:border-white   w-[100%] font-semibold border-2  rounded-xl p-[10px]" onClick={(e)=>handleCheckAns(e,item.isCorrect,index)}> {item.answerText}</button>
         })}
-    </div> : <div className="flex flex-col gap-[50px]"><div className="flex flex-col items-center bg-blue-200  p-[20px] rounded-xl">
-        <h1 className="font-semibold text-[130%]">Hey {user?.displayName}!</h1>
-        <p className="text-[110%]">Your score is {score}/{questions.length}.</p>
+    </div> : <div className="flex flex-col gap-[50px] md:max-w-[50%] min-w-[50%] my-[20px] mx-[10px]"><div className="flex flex-col  bg-blue-200  py-[30px] px-[30px] rounded-xl">
+        <h1 className="font-semibold text-[110%]">Hey {user?.displayName}!</h1>
+        <p className="text-[90%]">Your score is {score}/{questions.length}.</p>
+        {summary.map(item=>{
+            if(item.selectedAns===item.correctAns[0].answerText)
+               { 
+                return (
+                    <div className="flex flex-col gap-[10px] bg-green-200 mt-[10px] p-[15px] rounded-2xl">
+                 <p className="font-bold text-[110%]"> {item.quesText} </p>
+                 <p> Your Answer: <span className="font-semibold">{item.selectedAns}</span>   </p>
+                 <p>  Correct Answer: <span className="font-semibold">{item.correctAns[0].answerText}</span></p>
+                   </div>
+                )
+                }
+                else{
+                    return (
+                        <div className="flex flex-col gap-[10px] bg-red-200 mt-[20px] p-[15px] rounded-2xl">
+                     <p className="font-bold text-[110%]"> {item.quesText} </p>
+                     <p> Your Answer: <span className="font-semibold">{item.selectedAns}</span>   </p>
+                     <p>  Correct Answer: <span className="font-semibold">{item.correctAns[0].answerText}</span></p>
+                       </div>
+                    )
+                }
+            })}
         </div>
-       <button className="bg-blue-200 py-[10px] rounded-2xl text-[120%] font-semibold hover:text-white hover:bg-blue-400" onClick={()=>handlePlayAgain()}>Play Again</button>
+       <button className="bg-blue-600 text-white py-[10px] rounded-2xl text-[120%] font-semibold hover:text-white hover:bg-blue-400" onClick={()=>handlePlayAgain()}>Play Again</button>
       
         
         </div>
