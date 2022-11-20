@@ -132,7 +132,7 @@ return(
         {questions[quesNo].answerOptions.map((item,index)=>{
             return <button className="text-[100%] flex bg-green-100 justify-start hover:text-white hover:bg-blue-500 hover:border-white   w-[100%] font-semibold border-2  rounded-xl p-[10px]" onClick={(e)=>handleCheckAns(e,item.isCorrect,index)}> {item.answerText}</button>
         })}
-    </div> : <div className="flex flex-col gap-[50px] md:max-w-[50%] min-w-[50%] my-[20px] mx-[10px]"><div className="flex flex-col  bg-blue-200  py-[30px] px-[30px] rounded-xl">
+    </div> : <div className="flex flex-col gap-[50px] md:max-w-[50%] min-w-[50%] my-[20px] mx-[10px]"><div className="flex flex-col  bg-blue-200  py-[30px] px-[30px] rounded-2xl">
         <h1 className="font-semibold text-[110%]">Hey {user?.displayName}!</h1>
         <p className="text-[90%]">Your score is {score}/{questions.length}.</p>
         {summary.map(item=>{
