@@ -19,7 +19,7 @@ export default function Science(){
                     quesText:questions[quesNo].questionText,
                     selectedAns:questions[quesNo].answerOptions[id].answerText,
                     correctAns:questions[quesNo].answerOptions.filter(item=>{
-                        if(item.isCorrect==true)
+                        if(item.isCorrect===true)
                         return item
                     })
                 

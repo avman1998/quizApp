@@ -2,9 +2,6 @@ import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import Burger from "../../components/Burger/Burger";
-import { doc, setDoc } from "firebase/firestore"; 
-import { db } from "../../firebase";
-
 export default function Bollywood(){
     const {user}=useAuth();
     const [showScore,setShowScore]=useState(false);
@@ -22,7 +19,7 @@ export default function Bollywood(){
                     quesText:questions[quesNo].questionText,
                     selectedAns:questions[quesNo].answerOptions[id].answerText,
                     correctAns:questions[quesNo].answerOptions.filter(item=>{
-                        if(item.isCorrect==true)
+                        if(item.isCorrect===true)
                         return item
                     })
                 
