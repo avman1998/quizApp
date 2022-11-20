@@ -1,6 +1,6 @@
 
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import { useAuth } from "../../AuthContext";
 
@@ -67,7 +67,7 @@ export default function Burger(){
   return(
     <Menu styles={styles} className="relative">
          <a id="home" className="menu-item my-[10px]" href="/">Home</a>
-        <a id="about" className="menu-item my-[10px]" href="/about">About Us</a>
+         <Link to="/about"><a id="about" className="menu-item my-[10px]" href="/about">About Us</a></Link>
         {user?.displayName && <button onClick={handleSignOut}> Sign Out</button>}
         {user?.displayName && <p className="absolute bottom-[10px] text-[80%]">Player: {user?.displayName} </p>}
       </Menu>
