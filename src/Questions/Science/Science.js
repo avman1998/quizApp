@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-// import { db } from "../../firebase";
-// import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import Burger from "../../components/Burger/Burger";
 export default function Science() {
   const { user } = useAuth();
@@ -10,7 +10,7 @@ export default function Science() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-  // const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState([]);
   console.log(summary);
   function handleCheckAns(e, isCorrect, id) {
     e.preventDefault();
@@ -36,15 +36,15 @@ export default function Science() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      // setHistoryData((prev) => {
-      //   return [
-      //     ...prev,
-      //     {
-      //       category: "Science",
-      //       score: score,
-      //     },
-      //   ];
-      // });
+      setHistoryData((prev) => {
+        return [
+          ...prev,
+          {
+            category: "Science",
+            score: score,
+          },
+        ];
+      });
     }
   }
   function handlePlayAgain() {
@@ -58,15 +58,15 @@ export default function Science() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  // useEffect(() => {
-  //   setDoc(
-  //     doc(db, "userData", `${user?.email}-Science`),
-  //     {
-  //       history: historyData,
-  //     },
-  //     { merge: true }
-  //   );
-  // }, [historyData]);
+  useEffect(() => {
+    setDoc(
+      doc(db, "userData", `${user?.email}-Science`),
+      {
+        history: historyData,
+      },
+      { merge: true }
+    );
+  }, [historyData, user?.email]);
   const questions = [
     {
       questionText:

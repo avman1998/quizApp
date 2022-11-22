@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-// import { db } from "../../firebase";
-// import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import Burger from "../../components/Burger/Burger";
 export default function Bollywood() {
   const { user } = useAuth();
@@ -10,7 +10,7 @@ export default function Bollywood() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-  // const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState([]);
 
   console.log(summary);
   function handleCheckAns(e, isCorrect, id) {
@@ -37,15 +37,15 @@ export default function Bollywood() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      // setHistoryData((prev) => {
-      //   return [
-      //     ...prev,
-      //     {
-      //       category: "Bollywood",
-      //       score: score,
-      //     },
-      //   ];
-      // });
+      setHistoryData((prev) => {
+        return [
+          ...prev,
+          {
+            category: "Bollywood",
+            score: score,
+          },
+        ];
+      });
     }
   }
 
@@ -60,15 +60,15 @@ export default function Bollywood() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  // useEffect(() => {
-  //   setDoc(
-  //     doc(db, "userData", `${user?.email}-Bollywood`),
-  //     {
-  //       history: historyData,
-  //     },
-  //     { merge: true }
-  //   );
-  // }, [historyData]);
+  useEffect(() => {
+    setDoc(
+      doc(db, "userData", `${user?.email}-Bollywood`),
+      {
+        history: historyData,
+      },
+      { merge: true }
+    );
+  }, [historyData, user?.email]);
   const questions = [
     {
       questionText:

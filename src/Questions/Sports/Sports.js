@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
-// import { db } from "../../firebase";
-// import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
 import Burger from "../../components/Burger/Burger";
 export default function Sports() {
   const { user } = useAuth();
@@ -10,7 +10,7 @@ export default function Sports() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-  // const [historyData, setHistoryData] = useState([]);
+  const [historyData, setHistoryData] = useState([]);
   function handleCheckAns(e, isCorrect, id) {
     e.preventDefault();
     setSummary((prev) => {
@@ -38,15 +38,15 @@ export default function Sports() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      // setHistoryData((prev) => {
-      //   return [
-      //     ...prev,
-      //     {
-      //       category: "Sports",
-      //       score: score,
-      //     },
-      //   ];
-      // });
+      setHistoryData((prev) => {
+        return [
+          ...prev,
+          {
+            category: "Sports",
+            score: score,
+          },
+        ];
+      });
     }
   }
 
@@ -62,15 +62,15 @@ export default function Sports() {
     if (user == null) navigate("/");
   });
   // Add a new document in collection "cities"
-  // useEffect(() => {
-  //   setDoc(
-  //     doc(db, "userData", `${user?.email}-Sports`),
-  //     {
-  //       history: historyData,
-  //     },
-  //     { merge: true }
-  //   );
-  // }, [historyData]);
+  useEffect(() => {
+    setDoc(
+      doc(db, "userData", `${user?.email}-Sports`),
+      {
+        history: historyData,
+      },
+      { merge: true }
+    );
+  }, [historyData, user?.email]);
   const questions = [
     {
       questionText:
