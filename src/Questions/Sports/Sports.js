@@ -4,6 +4,7 @@ import { useAuth } from "../../AuthContext";
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import Burger from "../../components/Burger/Burger";
+import { Link } from "react-router-dom";
 export default function Sports() {
   const { user } = useAuth();
   const [showScore, setShowScore] = useState(false);
@@ -131,7 +132,7 @@ export default function Sports() {
         )}
       </div>
 
-      <div className=" flex justify-center items-center min-h-[92vh]  ">
+      <div className=" flex flex-col justify-center items-center min-h-[92vh]  ">
         {showScore === false ? (
           <div className="flex flex-col flex-wrap   justify-start items-start gap-[20px]  md:max-w-[50%] min-w-[50%] p-[20px] rounded-2xl bg-white mx-[10px]">
             <h2 className="text-[135%] w-[100%] bg-blue-300  font-semibold border-2  rounded-xl p-[10px]">
@@ -209,6 +210,13 @@ export default function Sports() {
               Play Again
             </button>
           </div>
+        )}
+        {showScore === false && (
+          <Link to="/quizcategory">
+            <button className="text-[100%]  bg-red-500 t text-white    font-semibold border-2  rounded-xl p-[10px]">
+              Quit
+            </button>
+          </Link>
         )}
       </div>
     </div>
