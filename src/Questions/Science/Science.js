@@ -12,7 +12,19 @@ export default function Science() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    if (flag) {
+      async function setDataFun(e) {
+        await addDoc(collection(db, `${user?.email}`), {
+          category: "Science",
+          score: score,
+        });
+      }
+      setDataFun();
+      console.log("the final score", score);
+    }
+  });
   function handleCheckAns(e, isCorrect, id) {
     e.preventDefault();
     setSummary((prev) => {
@@ -37,7 +49,7 @@ export default function Science() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      setDataFun();
+      setFlag(true);
     }
   }
   function handlePlayAgain() {
@@ -51,12 +63,6 @@ export default function Science() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  async function setDataFun(e) {
-    await addDoc(collection(db, `${user?.email}`), {
-      category: "Science",
-      score: score,
-    });
-  }
 
   const questions = [
     {

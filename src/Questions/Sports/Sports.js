@@ -11,6 +11,19 @@ export default function Sports() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    if (flag) {
+      async function setDataFun(e) {
+        await addDoc(collection(db, `${user?.email}`), {
+          category: "Sports",
+          score: score,
+        });
+      }
+      setDataFun();
+      console.log("the final score", score);
+    }
+  });
   function handleCheckAns(e, isCorrect, id) {
     e.preventDefault();
     setSummary((prev) => {
@@ -38,7 +51,7 @@ export default function Sports() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      setDataFun();
+      setFlag(true);
     }
   }
 
@@ -53,13 +66,7 @@ export default function Sports() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  // Add a new document in collection "user@email.com"
-  async function setDataFun(e) {
-    await addDoc(collection(db, `${user?.email}`), {
-      category: "Sports",
-      score: score,
-    });
-  }
+
   const questions = [
     {
       questionText:

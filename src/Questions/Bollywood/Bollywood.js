@@ -12,7 +12,19 @@ export default function Bollywood() {
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-
+  const [flag, setFlag] = useState(false);
+  useEffect(() => {
+    if (flag) {
+      async function setDataFun(e) {
+        await addDoc(collection(db, `${user?.email}`), {
+          category: "Bollywood",
+          score: score,
+        });
+      }
+      setDataFun();
+      console.log("the final score", score);
+    }
+  });
   function handleCheckAns(e, isCorrect, id) {
     setSummary((prev) => {
       return [
@@ -36,7 +48,7 @@ export default function Bollywood() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      setDataFun();
+      setFlag(true);
     }
   }
 
@@ -51,13 +63,6 @@ export default function Bollywood() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-
-  async function setDataFun(e) {
-    await addDoc(collection(db, `${user?.email}`), {
-      category: "Bollywood",
-      score: score,
-    });
-  }
 
   const questions = [
     {

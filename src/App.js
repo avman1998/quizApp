@@ -9,6 +9,7 @@ import Protected from "./components/Protected/Protected";
 import History from "./components/History/History";
 import { AuthProvider } from "./AuthContext";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 function App() {
   return (
     <AuthProvider>
