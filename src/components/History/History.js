@@ -49,11 +49,35 @@ export default function History() {
             <tbody>
               {History.map((item, index) => {
                 return (
-                  <tr className="border-2">
-                    <th className="border-2 p-[15px]">{index + 1}</th>
-                    <th className="border-2 p-[15px]">{item?.category}</th>
-                    <th className="border-2 p-[15px]">{item?.score}</th>
-                  </tr>
+                  <>
+                    {item?.category === "Bollywood" ? (
+                      <tr className="border-2 bg-red-200 text-gray-900">
+                        <th className="border-2 p-[15px]">{index + 1}</th>
+                        <th className="border-2 p-[15px]">{item?.category}</th>
+                        <th className="border-2 p-[15px]">{item?.score}</th>
+                      </tr>
+                    ) : (
+                      <>
+                        {item?.category === "Sports" ? (
+                          <tr className="border-2 bg-yellow-200 text-gray-900">
+                            <th className="border-2 p-[15px]">{index + 1}</th>
+                            <th className="border-2 p-[15px]">
+                              {item?.category}
+                            </th>
+                            <th className="border-2 p-[15px]">{item?.score}</th>
+                          </tr>
+                        ) : (
+                          <tr className="border-2 bg-blue-200 text-gray-900">
+                            <th className="border-2 p-[15px]">{index + 1}</th>
+                            <th className="border-2 p-[15px]">
+                              {item?.category}
+                            </th>
+                            <th className="border-2 p-[15px]">{item?.score}</th>
+                          </tr>
+                        )}
+                      </>
+                    )}
+                  </>
                 );
               })}
             </tbody>
