@@ -21,7 +21,7 @@ export default function History() {
       setHistory(data);
     });
     return () => unsubscribe();
-  }, []);
+  }, [user?.email]);
   return (
     <div className="min-h-[100vh] bg-gray-100">
       <div className="bg-black flex justify-between items-center min-w-[100vw] min-h-[8vh] md:min-h-[8vh]">
@@ -30,7 +30,7 @@ export default function History() {
           <p className="text-white p-[15px] ">{user?.displayName}</p>
         )}
       </div>
-      <div className="font-semibold bg-gray-600 p-[10px] ">
+      <div className="font-semibold bg-gray-600 p-[10px]  ">
         <h1 className="text-center my-[10px] text-white ">
           Hey {user?.displayName} <br /> Here are the details of all the quizzes
           you played.
