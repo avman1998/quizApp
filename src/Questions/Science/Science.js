@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import { db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import Burger from "../../components/Burger/Burger";
+
 export default function Science() {
   const { user } = useAuth();
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-  const [historyData, setHistoryData] = useState([]);
-  console.log(summary);
+
   function handleCheckAns(e, isCorrect, id) {
     e.preventDefault();
     setSummary((prev) => {
@@ -37,15 +37,7 @@ export default function Science() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      setHistoryData((prev) => {
-        return [
-          ...prev,
-          {
-            category: "Science",
-            score: score,
-          },
-        ];
-      });
+      setDataFun();
     }
   }
   function handlePlayAgain() {
@@ -59,15 +51,13 @@ export default function Science() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  useEffect(() => {
-    setDoc(
-      doc(db, "userData", `${user?.email}-Science`),
-      {
-        history: historyData,
-      },
-      { merge: true }
-    );
-  }, [historyData, user?.email]);
+  async function setDataFun(e) {
+    await addDoc(collection(db, `${user?.email}`), {
+      category: "Science",
+      score: score,
+    });
+  }
+
   const questions = [
     {
       questionText:
@@ -215,7 +205,7 @@ export default function Science() {
         )}
         {showScore === false && (
           <Link to="/quizcategory">
-            <button className="text-[100%]  bg-red-500 t text-white    font-semibold border-2  rounded-xl p-[10px]">
+            <button className="text-[100%]  bg-red-500 t text-white    font-semibold border-2  rounded-xl p-[10px] my-[10px]">
               Quit
             </button>
           </Link>

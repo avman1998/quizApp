@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import { db } from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import Burger from "../../components/Burger/Burger";
 import { Link } from "react-router-dom";
+export let bollywoodArray = [];
 export default function Bollywood() {
   const { user } = useAuth();
   const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
   const [quesNo, setQuesNo] = useState(0);
   const [summary, setSummary] = useState([]);
-  const [historyData, setHistoryData] = useState([]);
 
-  console.log(summary);
   function handleCheckAns(e, isCorrect, id) {
-    e.preventDefault();
     setSummary((prev) => {
       return [
         ...prev,
@@ -38,15 +36,7 @@ export default function Bollywood() {
       setQuesNo(nextQues);
     } else {
       setShowScore(true);
-      setHistoryData((prev) => {
-        return [
-          ...prev,
-          {
-            category: "Bollywood",
-            score: score,
-          },
-        ];
-      });
+      setDataFun();
     }
   }
 
@@ -61,15 +51,14 @@ export default function Bollywood() {
   useEffect(() => {
     if (user == null) navigate("/");
   });
-  useEffect(() => {
-    setDoc(
-      doc(db, "userData", `${user?.email}-Bollywood`),
-      {
-        history: historyData,
-      },
-      { merge: true }
-    );
-  }, [historyData, user?.email]);
+
+  async function setDataFun(e) {
+    await addDoc(collection(db, `${user?.email}`), {
+      category: "Bollywood",
+      score: score,
+    });
+  }
+
   const questions = [
     {
       questionText:
@@ -129,7 +118,6 @@ export default function Bollywood() {
 
       <div className=" flex flex-col justify-center items-center min-h-[92vh]  ">
         {showScore === false ? (
-          // <div className="flex justify-center items-center">
           <div className="flex flex-col flex-wrap   justify-start items-start gap-[20px]  md:max-w-[50%] min-w-[50%] p-[20px] rounded-2xl bg-white mx-[10px]">
             <h2 className="text-[135%] w-[100%] bg-blue-300  font-semibold border-2  rounded-xl p-[10px]">
               Q:{quesNo + 1} {questions[quesNo].questionText}
@@ -199,6 +187,7 @@ export default function Bollywood() {
                 }
               })}
             </div>
+
             <button
               className="bg-blue-600 text-white py-[10px] rounded-2xl text-[120%] font-semibold hover:text-white hover:bg-blue-400"
               onClick={() => handlePlayAgain()}
@@ -209,7 +198,7 @@ export default function Bollywood() {
         )}
         {showScore === false && (
           <Link to="/quizcategory">
-            <button className="text-[100%]  bg-red-500 t text-white    font-semibold border-2  rounded-xl p-[10px]">
+            <button className="text-[100%]  bg-red-500 t text-white    font-semibold border-2  rounded-xl p-[10px] my-[10px]">
               Quit
             </button>
           </Link>
