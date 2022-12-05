@@ -57,6 +57,7 @@ export default function Bollywood() {
     setScore(0);
     setQuesNo(0);
     setSummary([]);
+    setFlag(false);
   }
   const navigate = useNavigate();
 
